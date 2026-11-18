@@ -1,2 +1,147 @@
-# Roomlink-Uganda
-Real estate rental platform in Uganda
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoomLink Uganda | Find Your Home</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172b4d;
+    }
+    header {
+      background: #123b68;
+      color: white;
+      padding: 22px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h2 { margin: 0; }
+    .hero {
+      background: linear-gradient(120deg, #123b68, #1976a8);
+      color: white;
+      text-align: center;
+      padding: 65px 20px;
+    }
+    .hero h1 { font-size: 34px; }
+    .hero p { font-size: 17px; }
+    .search {
+      background: white;
+      padding: 20px;
+      margin: 25px auto;
+      max-width: 600px;
+      border-radius: 12px;
+      color: #172b4d;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      font-size: 16px;
+    }
+    button {
+      background: #f5a623;
+      color: #172b4d;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    main { padding: 25px 6%; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px #00000010;
+    }
+    .house { font-size: 48px; }
+    .price { color: #16834b; font-weight: bold; }
+    footer {
+      background: #123b68;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>🏠 RoomLink Uganda</h2>
+    <span>Find Your Home</span>
+  </header>
+
+  <section class="hero">
+    <h1>Find Your Perfect Home in Uganda</h1>
+    <p>Discover houses, apartments and rooms for rent.</p>
+    <div class="search">
+      <input id="area" placeholder="Enter area e.g. Kansanga">
+      <select id="type">
+        <option value="">All property types</option>
+        <option>Single Room</option>
+        <option>Apartment</option>
+        <option>House</option>
+        <option>Self Contained</option>
+      </select>
+      <button onclick="searchHomes()">Search Properties</button>
+    </div>
+  </section>
+
+  <main>
+    <h2>Popular Areas</h2>
+    <p>Kansanga · Makindye · Kabalagala</p>
+
+    <h2>Available Properties</h2>
+    <div class="cards" id="results">
+      <div class="card">
+        <div class="house">🏡</div>
+        <h3>Single Room</h3>
+        <p>Kansanga, Kampala</p>
+        <p class="price">UGX 150,000 / month</p>
+        <p>Sample property – demonstration only.</p>
+      </div>
+      <div class="card">
+        <div class="house">🏢</div>
+        <h3>Modern Apartment</h3>
+        <p>Makindye, Kampala</p>
+        <p class="price">UGX 350,000 / month</p>
+        <p>Sample property – demonstration only.</p>
+      </div>
+      <div class="card">
+        <div class="house">🏠</div>
+        <h3>Family House</h3>
+        <p>Kabalagala, Kampala</p>
+        <p class="price">UGX 600,000 / month</p>
+        <p>Sample property – demonstration only.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <h3>RoomLink Uganda</h3>
+    <p>Connecting tenants, landlords and real estate agents.</p>
+    <p>© 2026 RoomLink Uganda</p>
+  </footer>
+
+  <script>
+    function searchHomes() {
+      const area = document.getElementById('area').value;
+      const type = document.getElementById('type').value;
+      alert('Searching for ' + (type || 'all properties') +
+        ' in ' + (area || 'all areas') +
+        '. Property search will be connected soon.');
+    }
+  </script>
+</body>
+</html>
