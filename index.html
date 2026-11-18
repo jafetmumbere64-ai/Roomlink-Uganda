@@ -2,146 +2,253 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RoomLink Uganda | Find Your Home</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #172b4d;
-    }
-    header {
-      background: #123b68;
-      color: white;
-      padding: 22px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header h2 { margin: 0; }
-    .hero {
-      background: linear-gradient(120deg, #123b68, #1976a8);
-      color: white;
-      text-align: center;
-      padding: 65px 20px;
-    }
-    .hero h1 { font-size: 34px; }
-    .hero p { font-size: 17px; }
-    .search {
-      background: white;
-      padding: 20px;
-      margin: 25px auto;
-      max-width: 600px;
-      border-radius: 12px;
-      color: #172b4d;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 13px;
-      margin: 8px 0;
-      border: 1px solid #ddd;
-      border-radius: 7px;
-      font-size: 16px;
-    }
-    button {
-      background: #f5a623;
-      color: #172b4d;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    main { padding: 25px 6%; }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-    }
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px #00000010;
-    }
-    .house { font-size: 48px; }
-    .price { color: #16834b; font-weight: bold; }
-    footer {
-      background: #123b68;
-      color: white;
-      text-align: center;
-      padding: 25px;
-      margin-top: 40px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RoomLink Uganda</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f4f6fa;color:#172b4d}
+header{background:#123b68;color:white;padding:20px;display:flex;justify-content:space-between;align-items:center}
+header h2{margin:0;font-size:21px}
+.hero{background:linear-gradient(120deg,#123b68,#1976a8);color:white;text-align:center;padding:40px 18px}
+main{padding:20px;max-width:850px;margin:auto}
+.card{background:white;padding:20px;border-radius:12px;margin:18px 0;box-shadow:0 3px 12px #0001}
+input,select,textarea{width:100%;padding:13px;margin:8px 0;border:1px solid #ddd;border-radius:7px;font-size:15px}
+button{background:#f5a623;border:0;padding:13px;border-radius:7px;font-weight:bold;cursor:pointer;width:100%;margin:7px 0}
+.secondary{background:#123b68;color:white}
+.hidden{display:none}
+.property img{width:100%;height:200px;object-fit:cover;border-radius:8px}
+.price{color:#16834b;font-weight:bold}
+footer{text-align:center;background:#123b68;color:white;padding:25px}
+</style>
 </head>
 <body>
-  <header>
-    <h2>🏠 RoomLink Uganda</h2>
-    <span>Find Your Home</span>
-  </header>
+<header>
+<h2>🏠 RoomLink Uganda</h2>
+<span>🇺🇬</span>
+</header>
 
-  <section class="hero">
-    <h1>Find Your Perfect Home in Uganda</h1>
-    <p>Discover houses, apartments and rooms for rent.</p>
-    <div class="search">
-      <input id="area" placeholder="Enter area e.g. Kansanga">
-      <select id="type">
-        <option value="">All property types</option>
-        <option>Single Room</option>
-        <option>Apartment</option>
-        <option>House</option>
-        <option>Self Contained</option>
-      </select>
-      <button onclick="searchHomes()">Search Properties</button>
-    </div>
-  </section>
+<section class="hero">
+<h1>Find Your Perfect Home</h1>
+<p>Discover houses and apartments across Uganda.</p>
+</section>
 
-  <main>
-    <h2>Popular Areas</h2>
-    <p>Kansanga · Makindye · Kabalagala</p>
+<main>
+<section class="card" id="auth">
+<h2>Welcome to RoomLink</h2>
+<p>Create an account or sign in.</p>
+<input id="email" type="email" placeholder="Email address">
+<input id="password" type="password" placeholder="Password">
+<button onclick="signUp()">Create Account</button>
+<button class="secondary" onclick="signIn()">Login</button>
+<p id="authMessage"></p>
+</section>
 
-    <h2>Available Properties</h2>
-    <div class="cards" id="results">
-      <div class="card">
-        <div class="house">🏡</div>
-        <h3>Single Room</h3>
-        <p>Kansanga, Kampala</p>
-        <p class="price">UGX 150,000 / month</p>
-        <p>Sample property – demonstration only.</p>
-      </div>
-      <div class="card">
-        <div class="house">🏢</div>
-        <h3>Modern Apartment</h3>
-        <p>Makindye, Kampala</p>
-        <p class="price">UGX 350,000 / month</p>
-        <p>Sample property – demonstration only.</p>
-      </div>
-      <div class="card">
-        <div class="house">🏠</div>
-        <h3>Family House</h3>
-        <p>Kabalagala, Kampala</p>
-        <p class="price">UGX 600,000 / month</p>
-        <p>Sample property – demonstration only.</p>
-      </div>
-    </div>
-  </main>
+<section class="card hidden" id="dashboard">
+<h2>Owner Dashboard 🏠</h2>
+<p id="userEmail"></p>
+<button class="secondary" onclick="signOut()">Logout</button>
+<h3>Publish Your Property</h3>
+<input id="title" placeholder="Property title">
+<textarea id="description" placeholder="Description"></textarea>
+<select id="type">
+<option value="Single Room">Single Room</option>
+<option value="Apartment">Apartment</option>
+<option value="House">House</option>
+<option value="Self Contained">Self Contained</option>
+</select>
+<input id="district" placeholder="District e.g. Kampala">
+<input id="neighborhood" placeholder="Neighborhood e.g. Kansanga">
+<input id="address" placeholder="Full address">
+<input id="rent" type="number" min="1" placeholder="Monthly rent (UGX)">
+<input id="bedrooms" type="number" min="0" placeholder="Bedrooms">
+<input id="bathrooms" type="number" min="0" placeholder="Bathrooms">
+<label>Property photo</label>
+<input id="photo" type="file" accept="image/*">
+<button onclick="publishProperty()">Publish Property</button>
+<p id="publishMessage"></p>
+</section>
 
-  <footer>
-    <h3>RoomLink Uganda</h3>
-    <p>Connecting tenants, landlords and real estate agents.</p>
-    <p>© 2026 RoomLink Uganda</p>
-  </footer>
+<section>
+<h2>Available Properties</h2>
+<div id="properties">Loading properties...</div>
+</section>
+</main>
 
-  <script>
-    function searchHomes() {
-      const area = document.getElementById('area').value;
-      const type = document.getElementById('type').value;
-      alert('Searching for ' + (type || 'all properties') +
-        ' in ' + (area || 'all areas') +
-        '. Property search will be connected soon.');
-    }
-  </script>
+<footer>
+<h3>RoomLink Uganda</h3>
+<p>Connecting landlords, tenants and agents.</p>
+<p>© 2026 RoomLink Uganda</p>
+</footer>
+
+<script>
+const SUPABASE_URL = "YOUR_PROJECT_URL";
+const SUPABASE_KEY = "YOUR_PUBLISHABLE_KEY";
+
+const db = window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+async function signUp(){
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
+const {data,error}=await db.auth.signUp({email,password});
+document.getElementById("authMessage").textContent=
+error ? error.message : "Account created. Check your email if confirmation is required.";
+if(data.session) showDashboard(data.session.user);
+}
+
+async function signIn(){
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
+const {data,error}=await db.auth.signInWithPassword({email,password});
+if(error){
+document.getElementById("authMessage").textContent=error.message;
+return;
+}
+showDashboard(data.user);
+}
+
+function showDashboard(user){
+document.getElementById("auth").classList.add("hidden");
+document.getElementById("dashboard").classList.remove("hidden");
+document.getElementById("userEmail").textContent="Logged in: "+user.email;
+}
+
+async function signOut(){
+await db.auth.signOut();
+location.reload();
+}
+
+async function publishProperty(){
+const {data:{user}}=await db.auth.getUser();
+if(!user){alert("Please login first");return;}
+
+const title=document.getElementById("title").value.trim();
+const rent=Number(document.getElementById("rent").value);
+const district=document.getElementById("district").value.trim();
+const neighborhood=document.getElementById("neighborhood").value.trim();
+const address=document.getElementById("address").value.trim();
+const file=document.getElementById("photo").files[0];
+
+if(!title||!rent||!district||!neighborhood||!address||!file){
+alert("Please complete all required fields and select a photo.");
+return;
+}
+
+if(!Number.isFinite(rent)||rent<=0||file.size>5*1024*1024){
+alert("Rent must be positive and photo must be under 5 MB.");
+return;
+}
+
+const message=document.getElementById("publishMessage");
+message.textContent="Uploading property...";
+
+const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+const path=user.id+"/"+Date.now()+"-"+safeName;
+
+const {error:uploadError}=await db.storage
+.from("property-photos")
+.upload(path,file,{upsert:false});
+
+if(uploadError){
+message.textContent="Photo upload failed: "+uploadError.message;
+return;
+}
+
+const {data:publicData}=db.storage
+.from("property-photos")
+.getPublicUrl(path);
+
+const {error}=await db.from("properties").insert({
+owner_id:user.id,
+title:title,
+description:document.getElementById("description").value,
+property_type:document.getElementById("type").value,
+district:district,
+neighborhood:neighborhood,
+address:address,
+monthly_rent:rent,
+bedrooms:Number(document.getElementById("bedrooms").value)||0,
+bathrooms:Number(document.getElementById("bathrooms").value)||0,
+image_url:publicData.publicUrl,
+status:"available"
+});
+
+if(error){
+message.textContent="Property save failed: "+error.message;
+return;
+}
+
+message.textContent="Property published successfully!";
+document.getElementById("title").value="";
+document.getElementById("description").value="";
+document.getElementById("photo").value="";
+loadProperties();
+}
+
+async function loadProperties(){
+const container=document.getElementById("properties");
+const {data,error}=await db.from("properties")
+.select("*")
+.order("created_at",{ascending:false});
+
+if(error){
+container.textContent="Could not load properties: "+error.message;
+return;
+}
+
+if(!data.length){
+container.textContent="No properties published yet.";
+return;
+}
+
+container.innerHTML="";
+data.forEach(p=>{
+const div=document.createElement("div");
+div.className="card property";
+
+const img=document.createElement("img");
+if(p.image_url){
+img.src=p.image_url;
+img.alt=p.title||"Rental property";
+div.appendChild(img);
+}
+
+const heading=document.createElement("h3");
+heading.textContent=p.title;
+div.appendChild(heading);
+
+const location=document.createElement("p");
+location.textContent=(p.neighborhood||"")+", "+(p.district||"");
+div.appendChild(location);
+
+const price=document.createElement("p");
+price.className="price";
+price.textContent="UGX "+Number(p.monthly_rent).toLocaleString("en-UG")+" / month";
+div.appendChild(price);
+
+const details=document.createElement("p");
+details.textContent=(p.bedrooms||0)+" bedrooms · "+(p.bathrooms||0)+" bathrooms";
+div.appendChild(details);
+
+const description=document.createElement("p");
+description.textContent=p.description||"";
+div.appendChild(description);
+
+container.appendChild(div);
+});
+}
+
+async function init(){
+const {data:{session}}=await db.auth.getSession();
+if(session)showDashboard(session.user);
+loadProperties();
+}
+
+init();
+</script>
 </body>
 </html>
